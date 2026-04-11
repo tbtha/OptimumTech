@@ -1,0 +1,22 @@
+---
+name: CI Parcial1
+
+'on':
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Instalar yamllint
+        run: python3 -m pip install yamllint
+      - name: Validar YAML de workflows
+        run: |
+          yamllint -d '{extends: default, rules: {line-length: disable}}' .github/workflows
+      - name: Validacion simple
+        run: echo "CI ejecutada correctamente en develop/main"
