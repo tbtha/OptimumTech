@@ -124,4 +124,9 @@ public class UserService {
         }
         userRepository.delete(usuario);
     }
+
+    public long obtenerTotalUsuarios() {
+        return userRepository.count();
+    }
+
 }
