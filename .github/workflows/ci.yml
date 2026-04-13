@@ -20,3 +20,5 @@ jobs:
           yamllint -d '{extends: default, rules: {line-length: disable}}' .github/workflows
       - name: Validacion simple
         run: echo "CI ejecutada correctamente en develop/main"
+      - name: Sanity Check microservicios
+        run: test -f api_course/pom.xml && test -f api_payment/pom.xml && test -f api_report/pom.xml && test -f api_user/pom.xml && test -f gateway/pom.xml
