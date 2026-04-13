@@ -72,4 +72,13 @@ public class UserController {
         userService.eliminar(id);
         return "Usuario eliminado";
     }
+
+    @GetMapping("/total")
+    @Operation(
+        summary = "Obtiene el total de usuarios",
+        description = "Devuelve la cantidad total de usuarios registrados"
+    )
+    public long obtenerTotalUsuarios() {
+        return userService.obtenerTotalUsuarios();
+    }
 }
