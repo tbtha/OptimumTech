@@ -1,0 +1,13 @@
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\ApiCourseApplication.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\controllers\ContentController.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\controllers\CourseController.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\models\entities\Content.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\models\entities\Course.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\models\requests\ContentCreate.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\models\requests\ContentModify.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\models\requests\CourseCreate.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\models\requests\CourseModify.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\repositories\ContentRepository.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\repositories\CourseRepository.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\services\ContentService.java
+C:\Users\irina\Desktop\OptimumTech-main\api_course\src\main\java\com\example\api_course\services\CourseService.java
