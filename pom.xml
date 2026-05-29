@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.optimumtech</groupId>
+    <artifactId>OptimumTech</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>api_course</module>
+        <module>api_payment</module>
+        <module>api_report</module>
+        <module>api_user</module>
+        <module>gateway</module>
+    </modules>
+    <name>OptimumTech Parent</name>
+    <description>Parent POM for OptimumTech microservices</description>
+</project>
