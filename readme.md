@@ -1,3 +1,24 @@
+## Levantar el stack con Docker Compose
+
+Sigue estos pasos para iniciar todos los microservicios y la base de datos usando Docker Compose:
+
+1. Asegúrate de tener Docker y Docker Compose instalados en tu sistema.
+2. Clona este repositorio y navega a la carpeta principal del proyecto (`OptimumTech`).
+3. Ejecuta el siguiente comando:
+
+	```sh
+	docker compose up --build
+	```
+
+Esto construirá las imágenes y levantará todos los servicios definidos en `docker-compose.yml`.
+
+Para detener los servicios, usa:
+
+	```sh
+	docker compose down
+	```
+
+El volumen `mysql_data` asegura la persistencia de los datos de MySQL entre reinicios.
 # Implementación de GitFlow
 
 ## Metodología de branching elegida: GitFlow
