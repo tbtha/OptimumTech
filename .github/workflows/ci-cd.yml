@@ -37,13 +37,11 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-      - name: SonarQube - Análisis de calidad de código
-        uses: sonarsource/sonarqube-scan-action@master
-        with:
-          projectBaseDir: ./api_course
+      - name: SonarQube - Análisis de calidad de código (Maven)
+        working-directory: ./api_course
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.token=${SONAR_TOKEN} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
 
       - name: Build Docker image api_course
         working-directory: ./api_course
