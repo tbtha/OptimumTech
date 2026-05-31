@@ -24,6 +24,25 @@ jobs:
       - name: Build and test api_course
         working-directory: ./api_course
         run: mvn clean verify
+      
+        - name: JaCoCo Coverage Report
+          working-directory: ./api_course
+          run: mvn jacoco:report
+      
+        - name: Snyk - Análisis de dependencias y seguridad
+          uses: snyk/actions/maven@master
+          with:
+            args: test
+          env:
+            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+        - name: SonarQube - Análisis de calidad de código
+          uses: sonarsource/sonarqube-scan-action@master
+          with:
+            projectBaseDir: ./api_course
+          env:
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       - name: Build Docker image api_course
         working-directory: ./api_course
