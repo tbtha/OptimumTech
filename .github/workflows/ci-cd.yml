@@ -4,12 +4,10 @@ on:
   push:
     branches:
       - main
-      - feature/eva3-implementacion
 
   pull_request:
     branches:
       - main
-      - feature/eva3-implementacion
 
 jobs:
   build-and-test:
@@ -35,11 +33,11 @@ jobs:
 
       - name: Snyk - Análisis de dependencias y seguridad
         uses: snyk/actions/maven@master
-        continue-on-error: false
+        with:
+          args: --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high --file=pom.xml
+
 
       - name: SonarQube - Análisis de calidad de código (Maven)
         working-directory: ./api_course
