@@ -31,12 +31,13 @@ jobs:
         working-directory: ./api_course
         run: mvn jacoco:report
 
-      - name: Snyk - Análisis de dependencias y seguridad
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high --file=pom.xml
+      - name: Snyk - Análisis de dependencias y seguridad (Ejecución Docker Manual)
+        run: |
+          docker run --rm \
+            -e SNYK_TOKEN=${{ secrets.SNYK_TOKEN }} \
+            -v "${{ github.workspace }}:/app" \
+            snyk/snyk-cli:maven \
+            test --severity-threshold=high --file=pom.xml
 
 
       - name: SonarQube - Análisis de calidad de código (Maven)
