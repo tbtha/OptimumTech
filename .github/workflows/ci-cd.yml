@@ -23,8 +23,7 @@ jobs:
           java-version: '17'
 
 
-      - name: Build and test api_course
-        working-directory: ./api_course
+      - name: Build and test all services
         run: mvn clean verify
 
       - name: JaCoCo Coverage Report
@@ -34,7 +33,7 @@ jobs:
       - name: Snyk - Análisis de dependencias y seguridad
         uses: snyk/actions/maven@master
         with:
-          args: --severity-threshold=high
+          args: --severity-threshold=high --file=pom.xml
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -43,7 +42,12 @@ jobs:
         working-directory: ./api_course
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.token=${SONAR_TOKEN} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.organization=tbtha -Dsonar.qualitygate.wait=true
+        run: >
+          mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dsonar.token=${{ env.SONAR_TOKEN }}
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+          -Dsonar.organization=tbtha
+          -Dsonar.qualitygate.wait=true
 
       - name: Build Docker image api_course
         working-directory: ./api_course
