@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - main
+      - feature/eva3-implementacion
+
   pull_request:
     branches:
       - main
+      - feature/eva3-implementacion
 
 jobs:
   build-and-test:
