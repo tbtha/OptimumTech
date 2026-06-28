@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: optimumtech
+  labels:
+    app: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/actuator/prometheus"
+        prometheus.io/port: "8000"
+    spec:
+      containers:
+        - name: gateway
+          image: optimumtech-gateway:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_0_URI
+              value: "http://api-course:8082"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_0_ID
+              value: "api-negocio"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0
+              value: "Path=/OptimumTech/gestionCursos/**"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_0_FILTERS_0
+              value: "StripPrefix=2"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_1_URI
+              value: "http://api-user:8081"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_1_ID
+              value: "api-personas"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0
+              value: "Path=/OptimumTech/gestionUsuarios/**"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_1_FILTERS_0
+              value: "StripPrefix=2"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_2_URI
+              value: "http://api-payment:8083"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_2_ID
+              value: "api-payment"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_2_PREDICATES_0
+              value: "Path=/OptimumTech/gestionPagos/**"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_2_FILTERS_0
+              value: "StripPrefix=2"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_3_URI
+              value: "http://api-report:8084"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_3_ID
+              value: "api-report"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_3_PREDICATES_0
+              value: "Path=/OptimumTech/export/**"
+            - name: SPRING_CLOUD_GATEWAY_ROUTES_3_FILTERS_0
+              value: "StripPrefix=2"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8000
+            initialDelaySeconds: 40
+            periodSeconds: 15
