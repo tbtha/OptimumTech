@@ -39,7 +39,6 @@ jobs:
 
 
       - name: SonarQube - Análisis de calidad de código (Maven)
-        working-directory: ./api_course
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: >
