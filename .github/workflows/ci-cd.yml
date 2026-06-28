@@ -39,6 +39,7 @@ jobs:
           args: --severity-threshold=high
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          JAVA_HOME: ${{ env.JAVA_HOME }}
 
       - name: SonarQube - Análisis de calidad de código (Maven)
         working-directory: ./api_course
