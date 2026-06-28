@@ -34,13 +34,12 @@ jobs:
         run: mvn jacoco:report
 
       - name: Snyk - Análisis de dependencias y seguridad
-        working-directory: ./api_course
+        uses: snyk/actions/maven@master
+        continue-on-error: false
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: |
-          npm install -g snyk
-          snyk auth $SNYK_TOKEN
-          snyk test --severity-threshold=high --file=pom.xml
+        with:
+          args: --severity-threshold=high --file=pom.xml
 
       - name: SonarQube - Análisis de calidad de código (Maven)
         working-directory: ./api_course
