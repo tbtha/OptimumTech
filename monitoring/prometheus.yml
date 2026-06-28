@@ -1,0 +1,44 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'api_course'
+    metrics_path: '/actuator/prometheus'
+    scrape_protocols:
+      - PrometheusText0.0.4
+    static_configs:
+      - targets: ['api_course:8082']
+
+  - job_name: 'api_user'
+    metrics_path: '/actuator/prometheus'
+    scrape_protocols:
+      - PrometheusText0.0.4
+    static_configs:
+      - targets: ['api_user:8081']
+
+  - job_name: 'api_payment'
+    metrics_path: '/actuator/prometheus'
+    scrape_protocols:
+      - PrometheusText0.0.4
+    static_configs:
+      - targets: ['api_payment:8083']
+
+  - job_name: 'api_report'
+    metrics_path: '/actuator/prometheus'
+    scrape_protocols:
+      - PrometheusText0.0.4
+    static_configs:
+      - targets: ['api_report:8084']
+
+  - job_name: 'gateway'
+    metrics_path: '/actuator/prometheus'
+    scrape_protocols:
+      - PrometheusText0.0.4
+    static_configs:
+      - targets: ['gateway:8000']

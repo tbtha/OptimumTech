@@ -68,3 +68,77 @@ Se sigue el flujo de GitFlow:
 	- que el objetivo del cambio esté claro.
 	- que no rompa el flujo existente.
 	- que la acción de GitHub Actions esté en estado exitoso.
+
+# Implementación Prometheus
+
+Se implemento prometheus para cada microservicio, se pueden visualizar en entorno local a traves de:
+### Paso a paso
+```bash
+
+# 1. Levantar el stack
+docker compose up --build
+
+# 2. Verificar que los servicios están corriendo
+docker compose ps
+
+# 3. Probar el endpoint de métricas en cada servicio
+curl http://localhost:8082/actuator/prometheus   # api_course
+curl http://localhost:8081/actuator/prometheus   # api_user
+curl http://localhost:8083/actuator/prometheus   # api_payment
+curl http://localhost:8084/actuator/prometheus   # api_report
+curl http://localhost:8000/actuator/prometheus   # gateway
+
+
+```
+### Evidencia: 
+![api_usuarios](img_readme/Prometheus.png)
+
+# Implementación Kubernet 
+Desplegamos los 5 microservicios en un clúster Kubernetes local usando kind, con manifiestos organizados por servicio (Deployment, Service, Secret) y verificamos que los 6 pods (incluido MySQL) quedaron en estado Running.
+### Paso a Paso
+
+```bash
+# 1. Instalar kind (solo la primera vez)
+brew install kind
+
+# 2. Crear el cluster
+kind create cluster --name optimumtech
+
+# 3. Construir las imágenes Docker
+docker compose build
+
+# 4. Cargar las imágenes en el cluster kind
+kind load docker-image optimumtech-api_course:latest --name optimumtech
+kind load docker-image optimumtech-api_user:latest --name optimumtech
+kind load docker-image optimumtech-api_payment:latest --name optimumtech
+kind load docker-image optimumtech-api_report:latest --name optimumtech
+kind load docker-image optimumtech-gateway:latest --name optimumtech
+
+# 5. Desplegar todo
+./k8s/deploy.sh
+
+# 6. Verificar que todos los pods están Running
+kubectl get pods -n optimumtech
+
+# 7. Acceder al gateway desde el navegador
+kubectl port-forward -n optimumtech service/gateway 8000:8000
+
+```
+
+
+### Evidencia:
+![Kubernet](img_readme/kubernet.png)
+
+Agregamos Prometheus y Grafana al proyecto para visualizar en tiempo real métricas de los microservicios como CPU, memoria, requests y errores.
+
+# Implementación Dashboard
+```bash
+docker compose up --build
+# Prometheus → http://localhost:9090
+# Grafana    → http://localhost:3000 
+
+```
+
+### Evidencia: 
+![Dashboard](img_readme/Dashboard.png)
+
