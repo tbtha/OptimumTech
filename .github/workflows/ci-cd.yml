@@ -34,7 +34,7 @@ jobs:
       - name: Snyk - Análisis de dependencias y seguridad
         uses: snyk/actions/maven@master
         with:
-          args: test
+          args: test --severity-threshold=high --fail-on=all
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
