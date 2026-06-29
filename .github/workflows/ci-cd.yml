@@ -32,12 +32,12 @@ jobs:
         run: mvn jacoco:report
 
       - name: Snyk - Análisis de dependencias y seguridad
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: |
-          docker run --rm \
-            -e SNYK_TOKEN=${{ secrets.SNYK_TOKEN }} \
-            -v "${{ github.workspace }}:/app" \
-            snyk/snyk:maven-latest \
-            test --severity-threshold=high --file=pom.xml
+          npm install -g snyk
+          snyk auth ${{ secrets.SNYK_TOKEN }}
+          snyk test --severity-threshold=high --file=pom.xml
 
       - name: SonarQube - Análisis de calidad de código (Maven)
         env:
