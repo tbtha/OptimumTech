@@ -34,10 +34,7 @@ jobs:
       - name: Snyk - Análisis de dependencias y seguridad
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: |
-          npm install -g snyk
-          snyk auth ${{ secrets.SNYK_TOKEN }}
-          snyk test --severity-threshold=high --file=pom.xml
+        run: mvn snyk:test
 
       - name: SonarQube - Análisis de calidad de código (Maven)
         env:
