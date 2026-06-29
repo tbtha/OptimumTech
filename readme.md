@@ -150,7 +150,6 @@ Para ello también esta el Dashboar de Métricas para tener una mejor trazabilid
 Para la calidad y el cumplimiento (Quality Gates) tenemos test unitarios y JaCoCo que validan el correcto funcionamiento y que se cumpla con un umbral mínimo.
 Snyk analiza todas las dependencias del sistema, donde en caso de existir alguna severidad crítica, bloquea la pipeline.
 SonarCloud audita la calidad y seguridad del código, donde bloquea el proceso si el Quality Gate resulta en error.
-Y finalmente la Proteccion de Ramas, donde se pide que todos los estados anteriores hayan pasado en verde para poder permitir recién un merge. 
 Todas estas herramientas permiten la visualización del sistema de forma mas detallada, agilizando el proceso para solucionar problemas y toma de decisiones sobre ello. 
 
 
