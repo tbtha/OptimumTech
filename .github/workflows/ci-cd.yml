@@ -44,9 +44,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.token=${SONAR_TOKEN} -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} -Dsonar.organization=tbtha 
 
-      - name: Build Docker image OptmiumTech
-        working-directory: ./api_course
-        run: docker build -t api_course .
+      - name: Build Docker image api_course
+        run: docker build -f api_course/Dockerfile -t api_course .
 
       - name: Verify Docker Compose
         run: docker compose config
